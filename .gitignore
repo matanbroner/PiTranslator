@@ -1,4 +1,6 @@
 google_api_keys.json
+*.sqlite3
+
 # Logs
 logs
 *.log
@@ -117,3 +119,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+

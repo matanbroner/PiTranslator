@@ -31,6 +31,9 @@ module.exports = (() => {
     TABLE_CHANNELS_COLUMNS: {
       id: COLUMN_TYPE_ID,
       topic: COLUMN_TYPE_TEXT,
+      name: COLUMN_TYPE_TEXT,
+      restricted: COLUMN_TYPE_INTEGER,
+      password: COLUMN_TYPE_TEXT,
     },
   };
 })();

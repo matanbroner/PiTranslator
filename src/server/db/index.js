@@ -23,6 +23,26 @@ const createTable = async (table, columns) => {
   });
 };
 
+const getRows = async (table, columns = "*", where={}) => {
+  // Parse JSON WHERE to string for SQLite
+  const whereString = Object.entries(where)
+    .map(([name, value]) => {
+      return `${name} = ${value}`;
+    })
+    .join(" AND ");
+
+  const query = `SELECT ${columns} FROM ${table} ${
+    whereString.length ? `WHERE ${whereString}` : ""
+  }`;
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      return Promise.reject(err);
+    } else {
+      return Promise.resolve(rows);
+    }
+  });
+};
+
 // Insert row into table
 const insertRow = async (table, columns, values) => {
   const columnString = Object.entries(columns)
@@ -45,6 +65,10 @@ const insertRow = async (table, columns, values) => {
   });
 };
 
+const encrypt = (text) => {
+  return text;
+};
+
 // Close database
 const dbClose = () => {
   db.close();
@@ -56,10 +80,16 @@ const dbSetup = async () => {
     constants.TABLE_DEVICES_NAME,
     constants.TABLE_DEVICES_COLUMNS
   );
+  await createTable(
+    constants.TABLE_CHANNELS_NAME,
+    constants.TABLE_CHANNELS_COLUMNS
+  );
 };
 
-db.dbSetup = dbSetup;
-db.dbClose = dbClose;
-db.dbInsertRow = insertRow;
+db.setupDb = dbSetup;
+db.closeDb = dbClose;
+db.insertRow = insertRow;
+db.getRows = getRows;
+db.encrypt = encrypt;
 
 module.exports = db;
