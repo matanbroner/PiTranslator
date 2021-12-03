@@ -7,6 +7,8 @@ module.exports = (() => {
   const COLUMN_TYPE_BLOB = "BLOB";
   const COLUMN_TYPE_NULL = "NULL";
 
+  const FOREIGN_KEY_CONSTRAINT = (columnA, refTable, columnB = "id") => `FOREIGN KEY (${columnA}) REFERENCES ${refTable}(${columnB})`;
+
   return {
     // Database Config
     DB_FILE: "db.sqlite3",
@@ -18,6 +20,9 @@ module.exports = (() => {
     COLUMN_TYPE_REAL,
     COLUMN_TYPE_BLOB,
     COLUMN_TYPE_NULL,
+
+    // Relationships
+    FOREIGN_KEY_CONSTRAINT,
 
     // Database Tables
     TABLE_DEVICES_NAME: "devices",
@@ -33,7 +38,16 @@ module.exports = (() => {
       topic: COLUMN_TYPE_TEXT,
       name: COLUMN_TYPE_TEXT,
       restricted: COLUMN_TYPE_INTEGER,
-      password: COLUMN_TYPE_TEXT,
+      password: COLUMN_TYPE_TEXT + " DEFAULT NULL",
+      deviceId: COLUMN_TYPE_INTEGER,
+    },
+
+    TABLE_SETTINGS_NAME: "settings",
+    TABLE_SETTINGS_COLUMNS: {
+      id: COLUMN_TYPE_ID,
+      deviceId: COLUMN_TYPE_INTEGER,
+      spokenLanguage: COLUMN_TYPE_TEXT,
+      activeChannelId: COLUMN_TYPE_INTEGER + " DEFAULT NULL",
     },
   };
 })();

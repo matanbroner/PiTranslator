@@ -1,0 +1,16 @@
+{
+  "name": "speech",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/speech": "^4.9.0",
+    "axios": "^0.24.0",
+    "chalk": "^5.0.0",
+    "getmac": "^5.20.0",
+    "ip": "^1.1.5",
+    "mqtt": "^4.2.8",
+    "node-record-lpcm16": "^1.0.1",
+    "ws": "^8.3.0"
+  }
+}
