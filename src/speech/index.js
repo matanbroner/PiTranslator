@@ -4,6 +4,7 @@ const getMac = require("getmac").default;
 const ip = require("ip");
 const util = require("./util");
 const ws = require("./websocket");
+const MQTT = require("./mqtt");
 
 const main = async () => {
   let childProcess;
@@ -11,18 +12,24 @@ const main = async () => {
   const settings = await util.getDeviceSettings(mac);
 
   ws.init(settings);
+  MQTT.init(settings.topic);
 
   childProcess = spawn(
     `cd ../ui && export REACT_APP_MAC_ADDR=\"${mac}\" && yarn start`,
     { detached: true, shell: true }
   );
 
-  recorder.start((data, err) => {
-    if (err) {
-      console.log(err);
+  recorder.start(
+    (data, err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(data);
+    },
+    {
+      languageCode: settings.spokenLanguage,
     }
-    console.log(data);
-  });
+  );
 
   // on exit
   process.on("SIGINT", () => {

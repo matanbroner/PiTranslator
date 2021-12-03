@@ -1,5 +1,7 @@
 const ws = require("ws");
 const getMac = require("getmac").default;
+const recorder = require("./recorder");
+const MQTT = require("./mqtt");
 
 const mac = getMac();
 
@@ -11,7 +13,7 @@ module.exports = {
       socket.send(
         JSON.stringify({
           type: "init",
-          mac
+          mac,
         })
       );
     });
@@ -33,10 +35,20 @@ module.exports = {
 
           // TODO: call appropriate function to react to settings change
           switch (message.key) {
-            case "activeChannelId":
+            case "activeChannelId": {
+              MQTT.changeTopic(message.value);
               break;
-            case "spokenLanguage":
+            }
+            case "spokenLanguage": {
+              // TODO: plug in recorder callback
+              recorder.changeLanguageCode((data, err) => {
+                if (err) {
+                  console.log(err);
+                }
+                console.log(data);
+              }, message.value);
               break;
+            }
             default:
               break;
           }

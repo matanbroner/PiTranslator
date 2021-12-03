@@ -7,7 +7,12 @@ router.get('/id/:deviceId', async (req, res) => {
     const settings = await db.getRows('settings', "*", {
         deviceId: req.params.deviceId
     });
-    res.finish(200, settings[0]);
+    let result = settings[0];
+    const channel = await db.getRows('channels', "*", {
+        id: settings[0].activeChannelId
+    });
+    result.topic = channel[0].topic;
+    res.finish(200, result);
 });
 
 // GET settings by mac address
@@ -22,7 +27,12 @@ router.get('/mac/:mac', async (req, res) => {
     const settings = await db.getRows('settings', "*", {
         deviceId: devices[0].id
     });
-    res.finish(200, settings[0]);
+    let result = settings[0];
+    const channel = await db.getRows('channels', "*", {
+        id: settings[0].activeChannelId
+    });
+    result.topic = channel[0].topic;
+    res.finish(200, result);
 });
 
 // PUT settings by deviceId
@@ -36,9 +46,15 @@ router.put('/id/:id', async (req, res) => {
     });
     const mac = device[0].mac;
     const alertedSettings = ["activeChannelId", "spokenLanguage"]
-    Object.entries(req.body).forEach(([key, value]) => {
+    Object.entries(req.body).forEach(async ([key, value]) => {
         if (alertedSettings.indexOf(key) > -1) {
             console.log(`${key} updated to ${value}`);
+            if(key === "activeChannelId"){
+                const channels = await db.getRows('channels', "*", {
+                    id: value
+                });
+                value = channels[0].topic;
+            }
             WSS.updateSetting(mac, key, value);
         }
     });
