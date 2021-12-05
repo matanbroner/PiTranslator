@@ -58,6 +58,8 @@ The GT API leverages the massive compute power of Google Cloud to apply machine 
 
 TODO
 
+The runtime is something like 60 min on battery?
+
 ### Approach for Design Validation
 
 TODO
@@ -66,7 +68,21 @@ TODO
 
 ### Project Management 
 
-TODO
+Matan has extensive experience in Full Stack Development. His prior work experience makes him qualified to handle the user interface portion of the project as well as configuring servers in the Google Cloud. Spencer has extensive experience working with embedded systems. He will mange the physical hardware associate with this project: the raspberry pis and associated peripherals. Additionally, Spencer will manage the reporting and Matan will manage the testing, although some crossover between the two is expected. The team is using GitHub to collaborate. All code and files (including the report) associated with this project are committed frequently to GitHub. 
+
+The team was able to meet briefly during class time (every Tuesday and Thursday) as well as every Tuesday afternoon. These sessions allowed for us to sync up on our current issues and help each other unblock where we needed to. Additionally the group members were able to work asynchronously; while the frontend was in development the pis could be configured with a generic instance of NodeJS. This allowed for the group to make significant and quick progress. This form of asynchronous work was less structured, but Matan preferred to work in the afternoons while Spencer preferred to work in the evenings/nights.
+
+Person | Task Description
+----|-------------------------
+Matan | Configure NodeJS
+Matan | Develop Front End Interface
+Matan | Provision Google Cloud Servers
+Matan | Configure MQTT Broker and Service
+Matan | Testing Google Cloud Services
+Spencer | Configure Raspberry Pis & Local Networking
+Spencer | On Startup Actions on Pis to launch server
+Spencer | Testing End Product
+Spencer | Reporting
 
 ### Weekly Schedule of Tasks, Pert and Gantt charts
 
@@ -74,7 +90,13 @@ TODO
 
 ### Economic Analysis
 
-TODO
+This is a project that certainly can benefit from an economy of scale. Ordering headphones, batteries, and SD Cards en masse from a factory should greatly reduce the costs. Likewise, switching from a _Raspberry Pi 3B+_ to a _Raspberry Pi Zero W_ should also greatly reduce the costs. However, there are potentially significant supply problems. The compute module, a _Raspberry Pi_ of some variety is infrequently available (even before the ongoing chip shortage of 2021). The Raspberry Pi Foundation intends for their products to serve an educational purpose and thus do not encourage the use of them in a production product. This will result in them being unhelpful (or potentially actively interfering) with attempts to secure large quantities of their products should supply problems exist.
+
+The product hopefully requires no maintenance. Ideally, the headset is the most likely piece to break and could be replaced with any other Bluetooth / USB microphone. Furthermore, if the device is cheap enough, it may make economic sense to replace the whole unit, rather than repair it. There will likely be an ongoing and periodic need to update the software. This will be achievable over the air and should not require an explicit action from the user.
+
+As prototyped, there is no manufacturing component to this product. However, a production run would likely require a housing. This would be best as an injection molded part. While these are cheap per-unit, they do have a significant overhead cost for opening a mold. This may be a barrier in the go to market plan.
+
+There should not be any compliance issues. The Raspberry Pi has already undergone compliance testing. There may be a compliance issue on any parts (i.e. the housing) that are developed, especially in the case this product is certified for children. However, these are not issues that impact the prototype.
 
 ### Itemized Budget
 
@@ -84,11 +106,13 @@ Raspberry Pi 3B+ | 34.99 | 2 | Compute Module for Raspberry Pi
 SD Card | 7.99 | 2 | Store OS for Raspberry Pi
 Headset Microphone Combo | 26.99 | 2 | Audio Input and Output
 Battery | 19.99 | 2 |  Provide Power for the Devices
+Google Cloud Costs | 0.50 | 1 | Costs for calls to the Google API
 
-_Alternatively, a Raspberry Pi Zero W could be used. The per unit cost is then reduced from `34.99` to `9.99`_
+The total cost for a single translator is approximately 90 USD. For us the out of pocket cost was zero as we were able to source these components from various items we already had.
+
+_Alternatively, a Raspberry Pi Zero W could be used. The per unit compute cost is then reduced from `34.99` to `9.99`_
 
 ## References
-
 
 Stepes. https://www.stepes.com/iot-translation-services/ (accessed Dec 5. 2021)
 
@@ -106,8 +130,10 @@ TODO
 
 #### Spencer Gautreaux
 
-TODO
+Spencer Gautreaux is a Masters Computer Science Student at Texas A&M University. His focus is in embedded systems, computational geometry, and robotics. He works for the Computer Science Department as a TA for the introduction to data structures class and serves as the advisor for Aggie Robotics, a recognized student organization that focuses on developing robots. In his free time, he works on engineering projects related to 3D printing and Industry 4.0.
 
 #### Matan Broner
+
+Matan Broner is a Masters Computer Science Student at Texas A&M University. He seems like a cool dude. IDK. Hopefully he comes in and edits this himself.
 
 TODO
