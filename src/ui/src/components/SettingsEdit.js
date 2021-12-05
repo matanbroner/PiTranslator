@@ -46,6 +46,7 @@ const SettingsEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let deviceName = null;
+    delete formValues.topic;
     if (typeof formValues.deviceName !== "undefined") {
       deviceName = formValues.deviceName;
       delete formValues.deviceName;

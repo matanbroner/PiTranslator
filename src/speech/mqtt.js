@@ -29,11 +29,14 @@ class MQTT {
   }
 
   init(topic, onMessage) {
-    this.topic = topic;
     this._waitForConnection();
-    this.subscribe(topic);
+    if (topic) {
+      this.topic = topic;
+      this.subscribe(topic);
+    }
     this.client.on("message", (_, payload) => {
-      onMessage(payload);
+
+      onMessage(JSON.parse(payload.toString()));
     });
   }
 
@@ -46,14 +49,21 @@ class MQTT {
 
   changeTopic(topic) {
     this._waitForConnection();
-    this.client.unsubscribe(this.topic);
-    this.topic = topic;
-    this.subscribe(topic);
+    if (this.topic) {
+      this.client.unsubscribe(this.topic);
+    }
+    if (topic) {
+      this.topic = topic;
+      this.subscribe(topic);
+    }
   }
 
   publish(message) {
     this._waitForConnection();
-    this.client.publish(this.topic, message, { qos: 0, retain: false });
+    this.client.publish(this.topic, JSON.stringify({
+        payload: message,
+        sender: clientId,
+    }), { qos: 0, retain: false });
   }
 }
 

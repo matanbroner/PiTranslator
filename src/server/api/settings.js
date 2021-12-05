@@ -8,10 +8,10 @@ router.get('/id/:deviceId', async (req, res) => {
         deviceId: req.params.deviceId
     });
     let result = settings[0];
-    const channel = await db.getRows('channels', "*", {
+    const channels = await db.getRows('channels', "*", {
         id: settings[0].activeChannelId
     });
-    result.topic = channel[0].topic;
+    result.topic = channels.length ? channels[0].topic : null;
     res.finish(200, result);
 });
 
@@ -28,10 +28,10 @@ router.get('/mac/:mac', async (req, res) => {
         deviceId: devices[0].id
     });
     let result = settings[0];
-    const channel = await db.getRows('channels', "*", {
+    const channels = await db.getRows('channels', "*", {
         id: settings[0].activeChannelId
     });
-    result.topic = channel[0].topic;
+    result.topic = channels.length ? channels[0].topic : null;
     res.finish(200, result);
 });
 

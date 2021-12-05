@@ -40,12 +40,15 @@ module.exports = {
               break;
             }
             case "spokenLanguage": {
-              // TODO: plug in recorder callback
+              global.settings.spokenLanguage = message.value;
               recorder.changeLanguageCode((data, err) => {
                 if (err) {
                   console.log(err);
                 }
-                console.log(data);
+                MQTT.publish({
+                  data,
+                  spokenLanguage: message.value,
+                });
               }, message.value);
               break;
             }

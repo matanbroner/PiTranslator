@@ -6,11 +6,7 @@ router.get("/", async (req, res) => {
   try {
     const devices = await db.getRows("devices");
     res.setHeader("X-Total-Count", devices.length);
-    if (devices.length) {
-      res.finish(200, devices);
-    } else {
-      res.finish(204);
-    }
+    res.finish(200, devices);
   } catch (err) {
     res.finish(500, err);
   }
