@@ -12,7 +12,7 @@ import ChannelCreate from "./components/ChannelCreate";
 
 import { storeObjectLocalStorage } from "./util";
 
-const dataProvider = jsonServerProvider("http://localhost:5000/api");
+const dataProvider = jsonServerProvider("http://35.223.252.230:5000/api");
 
 function App() {
   const [loading, setLoading] = useState(true);

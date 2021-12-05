@@ -14,8 +14,7 @@ async function speakTranslatedText(text) {
     input: { text },
     // Select the language and SSML voice gender (optional)
     voice: {
-      //   languageCode: global.settings.spokenLanguage,
-      languageCode: "en-US",
+      languageCode: global.settings.spokenLanguage,
       ssmlGender: "NEUTRAL",
     },
     // select the type of audio encoding

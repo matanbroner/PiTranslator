@@ -15,7 +15,7 @@ import jsonServerProvider from "ra-data-json-server";
 import languages from "../assets/languages.json";
 import { shallowClone, shallowCompare } from "../util";
 
-const dataProvider = jsonServerProvider("http://localhost:5000/api");
+const dataProvider = jsonServerProvider("http://35.223.252.230:5000/api");
 
 const defaultSettings = JSON.parse(localStorage.getItem("settings"));
 
@@ -27,7 +27,7 @@ const SettingsEdit = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/api/channels")
+    fetch("http://35.223.252.230:5000/api/channels")
       .then((response) => response.json())
       .then((data) => {
         setChannels(data);

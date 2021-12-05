@@ -12,7 +12,7 @@ import {
 } from "react-admin";
 
 import jsonServerProvider from "ra-data-json-server";
-const dataProvider = jsonServerProvider("http://localhost:5000/api");
+const dataProvider = jsonServerProvider("http://35.223.252.230:5000/api");
 
 
 

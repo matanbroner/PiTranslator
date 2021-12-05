@@ -1,6 +1,6 @@
 const mqtt = require("mqtt");
 
-const host = "localhost";
+const host = "35.223.252.230";
 const port = "1883";
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
@@ -34,9 +34,11 @@ class MQTT {
       this.topic = topic;
       this.subscribe(topic);
     }
-    this.client.on("message", (_, payload) => {
-
-      onMessage(JSON.parse(payload.toString()));
+    this.client.on("message", (_, message) => {
+        message = JSON.parse(message.toString());
+        if(message.sender !== clientId) {
+            onMessage(message);
+        }
     });
   }
 
