@@ -152,7 +152,8 @@ let _recorder = {
       threshold: 0, // Silence threshold
       silence: 1000,
       keepSilence: true,
-      recorder: "arecord"
+      // if is linux use arecord else sox
+      recorder: process.platform === "linux" ? "arecord" : "sox",
     });
     recording
       .stream()
