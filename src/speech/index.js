@@ -30,7 +30,7 @@ const main = async () => {
   });
 
     childProcess = spawn(
-      `cd ../ui && export REACT_APP_MAC_ADDR=\"${mac}\" && yarn start`,
+      `cd ../ui && export REACT_APP_MAC_ADDR=\"${mac}\" && sudo yarn start`,
       { detached: true, shell: true }
     );
 
