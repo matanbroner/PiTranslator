@@ -152,7 +152,7 @@ let _recorder = {
       threshold: 0, // Silence threshold
       silence: 1000,
       keepSilence: true,
-      recordProgram: "arecord"
+      recorder: "arecord"
     });
     recording
       .stream()
