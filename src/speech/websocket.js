@@ -7,7 +7,7 @@ const mac = getMac();
 
 module.exports = {
   init: (settings) => {
-    const socket = new ws.WebSocket("ws://localhost:5001");
+    const socket = new ws.WebSocket("ws://35.223.252.230:5001");
     socket.on("open", () => {
       console.log("Connected to websocket");
       socket.send(

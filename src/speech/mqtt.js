@@ -1,6 +1,6 @@
 const mqtt = require("mqtt");
 
-const host = "localhost";
+const host = "35.223.252.230";
 const port = "1883";
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 

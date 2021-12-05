@@ -14,7 +14,7 @@ async function getDeviceSettings(mac) {
       }
     }
     try {
-      const url = "http://localhost:5000/api/devices";
+      const url = "http://35.223.252.230:5000/api/devices";
       const body = {
         mac,
         name: process.env.DEVICE_NAME || `Device ${randomString(5)}`,
@@ -34,7 +34,7 @@ async function getDeviceSettings(mac) {
 
 async function _getDeviceSettings(mac) {
   return new Promise((resolve, reject) => {
-    const url = "http://localhost:5000/api/settings/mac/" + mac;
+    const url = "http://35.223.252.230:5000/api/settings/mac/" + mac;
     axios({
       method: "get",
       url,
