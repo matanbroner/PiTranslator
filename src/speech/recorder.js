@@ -152,7 +152,8 @@ let _recorder = {
       threshold: 0, // Silence threshold
       silence: 1000,
       keepSilence: true,
-      recordProgram: "rec", // Try also "arecord" or "sox"
+      recordProgram: "sox",
+      device: "plughw:1,0",
     });
     recording
       .stream()
