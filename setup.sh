@@ -19,15 +19,15 @@ sudo npm install -g yarn
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 cd $SCRIPT_DIR/src/ui
-rm -rf node_modules || true
-rm -rf yarn.lock || true
-rm -rf package-lock.json || true
-yarn install
+sudo rm -rf node_modules || true
+sudo rm -rf yarn.lock || true
+sudo rm -rf package-lock.json || true
+sudo yarn install
 
 cd $SCRIPT_DIR/src/speech
-rm -rf node_modules || true
-rm -rf yarn.lock || true
-rm -rf package-lock.json || true
-yarn install
+sudo rm -rf node_modules || true
+sudo rm -rf yarn.lock || true
+sudo rm -rf package-lock.json || true
+sudo yarn install
 
 
