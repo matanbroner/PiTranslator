@@ -24,5 +24,4 @@ yarn install
 cd $SCRIPT_DIR/src/speech
 yarn install
 
-sh $SCRIPT_DIR/start.sh
 
