@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rpi-translator",
+  "private_key_id": "3064ecbdf2fc68ef34ad67f8e9051aa273a758a3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCcFXCdh5DMnqRm\nxIfXrO7Zha3Aze7J2kDTevgWb/nNuzBGZFRB2gasrSGos63togf5PFZTTzWd434g\nU2JjPxWsshRIEWQA0pcocD8ddHfceJ3D8cSfhSC93s8VEHcOuER3usPGBuhfI39V\nBbWt7+xQCYlEt8oTjyV9KuBLU31wlEn+b6CybcEnBhcfmmOcjSw884zyTzxLPaGl\nbZ+ssQANhvvNMZ9H+M419KVJ8NjkFJsqxQSnNs37xdBYTC/SbhG/U/9WblUTw9Xq\nsyw11AJ/WvEuXS/5SqooyXqMvNDjnhyFFqcSyRm96Hjtd/MAeU4euZTCqcK/e7JP\nSOZ+n5VlAgMBAAECggEACcuDpXMiOGEVRpi7QKLq2047DPAvdc3jRxI+uuO8jLdc\nTHKT4g0NYa08wUJDXjgOoYqyjShZoEasPdmVwU4ubUfAo5Qpzy5oC4LdxxqtwfF0\nzxzfPraDSz8OBk+h9RPFwjC/g/AfiYboAP0qfVei4BP1IBGblhYj32K/MCL1aoje\nr+62w3Dp0Oz7cC1xyXTagGMRQvG5rgzNiJrAUk9xjIBZmcvnSrV/V3kNqiKV8ZzR\nWaMTAUhoTAzYxXFonNx+l1JxH/lRamxPI0QrSwkdLGAqP+2RyVMHBvH8mrSWa++i\nTycsQUYgTbBgi8QTYZpcc+LbPbTK0BRKgEmrvke/+QKBgQDPPqToVV82UgtYz5rR\n0ABZ7bJEC4J8c0bnXe/aE0XiIVnKbvw7uY+a1fyEXRz2OHNuLNeIuhUiiecGMn12\n/rj+ynxm9nZ9zR9Q+4DV0TNYM9nNs9cD45UVpsBMu546MB/CFXIWt9mTQRxprf7U\ndqgCKZro4Fwk+4ZHtuQOLvgVOQKBgQDAzZ3UOWkH/IiQBecEEoFXAH6iTQXx+xJA\nINmqlLfL5uxPqCfoQbDjhAwJ4e9IuZ5YjQzczf+pxE4wYiSt8sbVIIFbgQoh5Kt8\nqqUxNEjC+dU5cgnys3tjzXX/GvI7GwEZouM0QDVoF5MjFGw9ql9WXkOnIkYdUHyj\nv01cZigNjQKBgEUtb/ZtqN6E/Gykv9URTUy3Xy3/eYr5H83TOWDd1hHpeANukJuP\nETRqAWRdgHFf3ogER93H344r4gXbjK3P0QibpnLoCh1r/uwVR6gXsL/cbvOO+FLA\nAN+9TatPZT2fGrq6Vd7nd6UDsuxDvDBHe0Vdhev+GEPwAZ6mmfFyFDVhAoGASkkv\nDY0NNeGMMInFp+EFaqMrJ5erub92GbVOiJYCdxLDbDGrJqbg49iF1uzxiEDUjOPT\n1+ObJSsYwTWfUlJfX9DFZp9CayqzFDafrWSqwE0IZbjVsmiLGzoXw7H7MODHvLvw\n9LnkmfWzYGnHBr91Ok7ZnDTtdPAFBgZ4ZSiLOCUCgYAfPxog+3FHWCBNTaSE6DNr\nK25gK/6Su60MpAH5C1tkFoV0a5SAW/gUvzgRrdsNFtB60XZBkf9w1YhIbT6e5fnr\nG71zt+AQhDcurdUIFk2CMGONSfaiNdo3aIopUqgvdZgflG+S4ERos8NY4qMicsA8\nQ8KMZZwxIdAb7A96FoozlQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "matan-service@rpi-translator.iam.gserviceaccount.com",
+  "client_id": "117759756721519074625",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/matan-service%40rpi-translator.iam.gserviceaccount.com"
+}
