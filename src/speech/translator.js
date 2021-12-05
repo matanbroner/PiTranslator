@@ -4,8 +4,7 @@ const translate = new Translate();
 
 async function translateText(text, from) {
   from = from.split("-")[0];
-  //   const to = global.settings.spokenLanguage.split("-")[0];
-  const to = "en";
+  const to = global.settings.spokenLanguage.split("-")[0];
   if (from === to) return text;
   let [translations] = await translate.translate(text, {
     from,

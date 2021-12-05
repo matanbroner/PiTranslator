@@ -34,9 +34,11 @@ class MQTT {
       this.topic = topic;
       this.subscribe(topic);
     }
-    this.client.on("message", (_, payload) => {
-
-      onMessage(JSON.parse(payload.toString()));
+    this.client.on("message", (_, message) => {
+        message = JSON.parse(message.toString());
+        if(message.sender !== clientId) {
+            onMessage(message);
+        }
     });
   }
 
