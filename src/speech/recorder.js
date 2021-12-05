@@ -154,6 +154,7 @@ let _recorder = {
       keepSilence: true,
       // if is linux use arecord else sox
       recorder: process.platform === "linux" ? "arecord" : "sox",
+      device: process.platform === "linux" ? "plughw:2" : "default",
     });
     recording
       .stream()

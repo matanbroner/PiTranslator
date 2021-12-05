@@ -34,6 +34,15 @@ const main = async () => {
       { detached: true, shell: true }
     );
 
+    // print output of child process
+    childProcess.stdout.on("data", (data) => {
+        console.log(`stdout: ${data}`);
+    });
+    // print error of child process
+    childProcess.stderr.on("data", (data) => {
+        console.log(`stderr: ${data}`);
+    });
+
   recorder.start(
     (data, err) => {
       if (err) {

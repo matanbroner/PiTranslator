@@ -24,12 +24,12 @@ cd $SCRIPT_DIR/src/ui
 sudo rm -rf node_modules || true
 sudo rm -rf yarn.lock || true
 sudo rm -rf package-lock.json || true
-sudo yarn install
+yarn install
 
 cd $SCRIPT_DIR/src/speech
 sudo rm -rf node_modules || true
 sudo rm -rf yarn.lock || true
 sudo rm -rf package-lock.json || true
-sudo yarn install
+yarn install
 
 
