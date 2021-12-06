@@ -28,11 +28,11 @@ async function speakTranslatedText(text) {
   const writeFile = util.promisify(fs.writeFile);
   const filename = `${randomString(10)}.mp3`;
   await writeFile(filename, response.audioContent, "binary");
-  console.log("Audio content written to file: output.mp3");
+  console.log("Audio content written to file: " + filename);
 
   // if is MacOS
   if (process.platform === "darwin") {
-    exec("afplay output.mp3", () => {
+    exec("afplay " + filename , () => {
       // remove file when done
       fs.unlink(filename, () => {
         console.log("File removed");
