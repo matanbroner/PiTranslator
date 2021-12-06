@@ -29,19 +29,19 @@ const main = async () => {
     }
   });
 
-    childProcess = spawn(
-      `cd ../ui && export REACT_APP_MAC_ADDR=\"${mac}\" && yarn start`,
-      { detached: true, shell: true }
-    );
+  childProcess = spawn(
+    `cd ../ui && export REACT_APP_MAC_ADDR=\"${mac}\" && yarn start`,
+    { detached: true, shell: true }
+  );
 
-    // print output of child process
-    childProcess.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
-    });
-    // print error of child process
-    childProcess.stderr.on("data", (data) => {
-        console.log(`stderr: ${data}`);
-    });
+  // print output of child process
+  childProcess.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  // print error of child process
+  childProcess.stderr.on("data", (data) => {
+    console.log(`stderr: ${data}`);
+  });
 
   recorder.start(
     (data, err) => {
@@ -63,7 +63,11 @@ const main = async () => {
     recorder.stop();
     // kill all processes on port 3000 (cannot just kill child since it spawns children of its own)
     if (childProcess) {
-      spawn("npx kill-port 3000", { shell: true });
+      if (process.platform === "darwin") {
+        spawn("npx kill-port 3000", { shell: true });
+      } else {
+        spawn("fuser -k 3000/tcp", { shell: true });
+      }
     }
     process.exit();
   });
