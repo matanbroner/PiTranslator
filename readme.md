@@ -18,15 +18,23 @@ TODO
 
 ### Needs Statement
 
-TODO
+There is a need for a affordable, fast, IoT translation device that can be deployed quickly and easily to users.
 
 ### Goals and Objectives
 
-TODO
+The goal is to develop a affordable, reliable, IoT translation device based on the popular Raspberry Pi platform and the commercially available Google Cloud. 
+
+TODO : Objectives
 
 ### Design Constraints and Feasibility
 
-TODO
+__Timeliness:__ As a conversational piece, the timeliness of translation will be critical. Long pauses in conversation or busy spinning are not ideal as they interrupt the conversational flow. These elements are to some extent unavoidable; there will be some unavoidable delay as data must make a round trip from the device to a Google Cloud datacenter. However, all reasonable attempts should be made to ensure the timeliness of the service, ideally less than 100 ms between spoken audio and translated playback.
+
+__Cost:__ For this device to have the largest impact, it needs to be cost effective. This means minimizing the costs as much as possible. In the prototyping phase, there will be some overhead that could later be reduced through an economy of scale. A good benchmark for cost would be less than $20 per unit in production. For prototyping, the cost should remain under $80 per unit. 
+
+__Reliability:__ This device should exhibit a large degree of reliability. The service should be ready to run at all times in a consistent, predictable manner. This is somewhat achieved by using the Google Cloud to process data and interruptions thereof are uncontrollable with this project. However, we can ensure that we are good stewards of the resources; doing what is in our power to ensure that we provide a highly reliable service.
+
+__Accuracy:__ To whatever extent possible, we should aim for highly accurate translations. Once again, the use of the Google Cloud both accomplishes this goal and limits the impacts we can have in controlling the outcome. However, to whatever extent possible, we should aim to provide a highly accurate service.
 
 ## Literature Review
 
@@ -86,7 +94,9 @@ Spencer | Reporting
 
 ### Weekly Schedule of Tasks, Pert and Gantt charts
 
-TODO
+![Gnatt Chart for Project](gnatt_chart.png)
+
+There is not much dependency throughout components. The pieces can be developed largely independently. For example, while Matan configures the NodeJS instance, Spencer can ensure that the sample NodeJS project runs. In theory, these two can be tested independently and integration should happen seamlessly. 
 
 ### Economic Analysis
 
