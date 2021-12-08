@@ -9,6 +9,7 @@ async function getDeviceSettings(mac) {
       settings = await _getDeviceSettings(mac);
       return resolve(settings);
     } catch (err) {
+      console.log(err);
       if (err.response.status !== 404) {
         return reject(err);
       }
