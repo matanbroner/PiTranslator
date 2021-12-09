@@ -12,19 +12,13 @@ Real time language translation is an important area of research. As the world be
 
 ## Introduction
 
-### Background
-
-TODO
-
 ### Needs Statement
 
 There is a need for a affordable, fast, IoT translation device that can be deployed quickly and easily to users.
 
 ### Goals and Objectives
 
-The goal is to develop a affordable, reliable, IoT translation device based on the popular Raspberry Pi platform and the commercially available Google Cloud. 
-
-TODO : Objectives
+The goal is to develop a affordable, reliable, IoT translation device based on the popular Raspberry Pi platform and the commercially available Google Cloud. We are optimizing for costs and near-realtime behavior.
 
 ### Design Constraints and Feasibility
 
@@ -44,7 +38,7 @@ Stepes is a commercially available solution for "fast and professional IoT Trans
 
 ### An IoT Technology for Development of Smart English Language Translation and Grammar Learning Applications
 
-This paper, by Jiang et. al. outlines processes and problems associated with IoT translations. They explore this problem in the context of English instruction and teaching. Furthermore, the aggregate the data and discuss the potential to apply this data to develop and refine the curriculum around learning english as a second language. The first part, the challenges of IoT helps to refine the needs statement for this project. For example, the need to rapidly translate within a classroom environment is a subset of our larger need statement. Likewise, in the classroom environment, cost is a major factor; it is untenable for a classroom to deploy expensive, high powered, compute devices to each student. The latter part of the paper, focused on english curriculum development, is less immediately relevant. However, it poses and interesting future work for this project. With enough scale, the ideas discussed therein could be realized; if enough users are working with the PiTranslator, a significant portion of aggregate data could be collected. This data could be applied to develope and refine the language learning experience in the manner outlined by Jiang et. al. It is an interesting possibility, but not one we explored in this project.
+This paper, by Jiang et. al. outlines processes and problems associated with IoT translations. They explore this problem in the context of English instruction and teaching. Furthermore, the aggregate the data and discuss the potential to apply this data to develop and refine the curriculum around learning english as a second language. The first part, the challenges of IoT helps to refine the needs statement for this project. For example, the need to rapidly translate within a classroom environment is a subset of our larger need statement. Likewise, in the classroom environment, cost is a major factor; it is untenable for a classroom to deploy expensive, high powered, compute devices to each student. The latter part of the paper, focused on english curriculum development, is less immediately relevant. However, it poses and interesting future work for this project. With enough scale, the ideas discussed therein could be realized; if enough users are working with the PiTranslator, a significant portion of aggregate data could be collected. This data could be applied to develop and refine the language learning experience in the manner outlined by Jiang et. al. It is an interesting possibility, but not one we explored in this project.
 
 ### Google Translate API
 
@@ -57,20 +51,59 @@ The GT API leverages the massive compute power of Google Cloud to apply machine 
 ### Evaluation of Alternative Solutions
 
 1. __Local Compute:__ One major downside of our solution is the reliance upon the Google Cloud. This represents a single point of failure, which is not ideal in an IoT system. It then must be asked if the translation work can be moved to the device. This introduces a couple new problems. Principally, this means the translation device must have more powerful compute, increasing device costs. This also increase the power requirement, decreasing runtime, if the device is deployed in a battery-operated manner. Finally in doing so, the devices may begin to move out of version with each other. Without a centralized authority providing the translation, the results of a translation will depend on the version(s) used by the devices involved in the translation. The devices would need to be able to interface across versions or update their versions at the edge, increasing complexity of the overall system.
-1. __Build our Own Translation Engine:__ Much like the local compute issue, to build and train a custom translation engine would require an untenable amount of processing. This problem is compounded if the data collection is done at the edge and all translation devices are required to synchronize their datasets. The scale of storange and compute required goes against the IoT device fundamentals. For that reason, relying on a pre-collected and trained AI model from a central authority (in this case Google Cloud), greatly simplifies teh compute requirements of the devices deployed at the edge.
+1. __Build our Own Translation Engine:__ Much like the local compute issue, to build and train a custom translation engine would require an untenable amount of processing. This problem is compounded if the data collection is done at the edge and all translation devices are required to synchronize their datasets. The scale of storage and compute required goes against the IoT device fundamentals. For that reason, relying on a pre-collected and trained AI model from a central authority (in this case Google Cloud), greatly simplifies teh compute requirements of the devices deployed at the edge.
 1. __Develop a "Closed Form" Translation Model:__ Conceptually it is possible to develop an algorithm which performs translations without the need for Artificial Intelligence. If possible, this may significantly reduce the data requirements and this allow for the simplification of the edge compute. However, there is no such program that exists for doing so; this is very much an active area of research. Furthermore, if such a program did exist, it would need ongoing updates. Language is an evolving entity and thus the translation units would need to continually update their translation Algorithm. This reintroduces problems with differing translation versions as discussed previously.
 1. __Make the Edge Compute Simpler:__ A RaspberryPi is by no means the cheapest miro-controller available on the market. However, it is cheap enough and provides a rich feature set that helps the product. It has a large amount of support and natively integrates WiFi, Bluetooth, and USB, which allows it to interface with a wide variety of peripherals. Changing to a simpler device, while perhaps saving some money, complicates these issues.
 1. __Employ a Human Translator:__ While a human translator would provide excellent translation quality, higher than that of any computer program, they are expensive in terms of financial and (caloric) energy resources. They have significant downtime wherein they need to recover mentally and are in an extremely finite supply. For these reasons, it is untenable to scale human translators.
 
 ### Design Specification
 
-TODO
+The project is built on the single board computer, Raspberry Pi 3B+. This comes with certain benefits and drawbacks. Principally, the Raspberry Pi 3B+ runs a complete linux-based operating system, Debian. Additionally, it natively supports many hardware components: WiFi, Bluetooth, USB, and 3.5mm audio. This allows for great flexibility in hardware configuration; not only are many protocols supported, the larger linux community has many resources and libraries to aid in development. For example, the software component (detailed later) is written in _Node.js_. This does not run on bare metal, however, the Debian operating system (which runs on the Raspberry Pi) allows us to download _Node.js_ from the internet. In fact, for this reason the software component can be re-deployed on any device with provides the appropriate connectivity and supports _Node.js_.
 
-The runtime is something like 60 min on battery?
+On the device runs the __PiTranslator Speech Module__. This is launched at startup. It is launched by the `rc.etc` script which runs near the end of the boot process, when the operating system believes all critical services (ex. WiFi) have started. This is easy but not the most reliable method of starting the speech module. If the speech module (or the _Node.js_ wrapper) crashes, it will not be restarted. This could be mediated by registering the speech module as a service, causing the operating system to ensure that it is always running. However, this was not a problem experienced during testing and development and thus has not been addressed.
+
+The __PiTranslator Speech Module__ runs several components for various reasons. In brief:
+
+* Websockets Client
+* Recorder
+* Speaker
+* Translator
+* MQTT Client
+
+![Design Diagram](diagram.png)
+
+#### Google API's
+
+1. Speech to Text: used for recording users' voices and piping them to the MQTT channel that a user is currently active on.
+2. Translate: used to translate a given message from MQTT from its own language code to the language that a user has chosen.
+3. Text to Speech: used to turn translated text to a voiced MP3 file where it can be outputted to the device's output audio card.
+
+#### Data Format
+
+For MQTT messages, each device sends its own MQTT client ID (to prevent a user's own audio from being resent to themselves), the spoken transcribed text, and the text's language code. The data is sent as a JSON body which is parsed from a string to JSON when received by MQTT. An example of the json log output for a single receiver is show below:
+
+~~~json
+{
+    "payload": {"data": "yeah you did", "spokenLanguage": "en-US"},
+    "sender": "mqtt_7d3b1f6b70b6"
+}
+{
+    "payload": {"data": "I'm good how are you", "spokenLanguage": "en-US"},
+    "sender": "mqtt_7d3b1f6b70b6"
+}
+~~~
+
+#### Speech UI
+
+The UI module is run as a subprocess of the Speech Module's backend process. It is passed a MAC address which it uses to make requests on behalf of the device. The UI is able to create channels, display registered devices, and edit user settings such as the spoken language and active channel. When the UI makes request to the hosted server, the server relays these changes back to the Speech Module's backend through a websocket connection.
+
+![Screenshot of UI Configuration](ui_screenshot.png)
 
 ### Approach for Design Validation
 
-TODO
+This project required significant debugging. There was alot of issues that stemmed primarily from running the Raspberry Pis in head less mode (without a display). This helped with memory efficiency but limited some debugging tasks to `ssh` and `tail file.log`. Being an audio device, there were other fun problems. For example, feedback loops were common and tuning silence thresholds were important.
+
+For testing, we had many real and simulated conversations. We also relied on using youtube videos played through laptops to test the performance in a remote manner. This allowed for greater distance and thus helped with the feedback issue. 
 
 ## Engineering Standards
 
@@ -120,7 +153,7 @@ Google Cloud Costs | 0.50 | 1 | Costs for calls to the Google API
 
 The total cost for a single translator is approximately 90 USD. For us the out of pocket cost was zero as we were able to source these components from various items we already had.
 
-_Alternatively, a Raspberry Pi Zero W could be used. The per unit compute cost is then reduced from `34.99` to `9.99`_
+_Alternatively, a Raspberry Pi Zero W could be used. The per unit compute cost is then reduced from `34.99` to `9.99`, a significant cost savings. Additionally, the battery could likely be smaller and thus cheaper._
 
 ## References
 
@@ -128,13 +161,15 @@ Stepes. https://www.stepes.com/iot-translation-services/ (accessed Dec 5. 2021)
 
 Jiang, Y., Sabitha, R. & Shankar, A. An IoT Technology for Development of Smart English Language Translation and Grammar Learning Applications. Arab J Sci Eng (2021). https://doi.org/10.1007/s13369-021-05876-1
 
-TODO
+_Details for the Raspberry Pi 3B+ and Google Cloud APIs are provided in the following section_ [Product Datasheets](###-Product-Datasheets)
 
 ## Appendices
 
 ### Product Datasheets
 
-TODO
+* [Google API](https://developers.google.com/apis-explorer)
+* [Raspberrry Pi 3B+](https://www.raspberrypi.com/documentation/)
+* [Source Code (Github)](https://github.com/matanbroner/PiTranslator)
 
 ### Bio-Sketch
 
@@ -144,6 +179,4 @@ Spencer Gautreaux is a Masters Computer Science Student at Texas A&M University.
 
 #### Matan Broner
 
-Matan Broner is a Masters Computer Science Student at Texas A&M University. He seems like a cool dude. IDK. Hopefully he comes in and edits this himself.
-
-TODO
+Matan Broner is a Masters Computer Science Student at Texas A&M University. He recently graduated with his BS in Computer Science from UC Santa Cruz. This is his first semester at A&M, and he is an upcoming graduate research assistant in 5G security for the LENSS research group headed by Professor Radu Stoleru.
